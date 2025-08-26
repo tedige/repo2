@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Reppo</title>
+    <link rel="stylesheet" href="style.css" />
+    <!-- Include html2pdf.js library -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.2/html2pdf.bundle.js"></script>
+  </head>
+  <body>
+    <!-- Button to trigger PDF download -->
+    <div class="top" onselect="false">
+      <div class="controls">
+        <div class="logo">
+          <img src="./img/reppo.png" draggable="false" alt="" />
+          Reppo
+        </div>
+        <div>
+          <img id="downloadBtn" src="./img/down.png" alt="" />
+        </div>
+      </div>
+    </div>
+    <div class="report">
+      <div class="report_content">
+        <img src="./img/logo.png" width="120px" alt="" />
+        <h1>{{ full_name }}</h1>
+        <h2>Отчет за {{month}}</h2>
+
+        <div class="box">
+          <h3>
+            Посещаемость: посетил {{ attendance }} из {{ lessons }} уроков(-а)
+          </h3>
+          <p>{{ attendance_info }}</p>
+        </div>
+
+        <div class="box">
+          <h3>За данный период обучения учащийся изучил:</h3>
+          <div class="what_learned"></div>
+        </div>
+
+        <div class="box">
+          <h3>
+            Успеваемость: сдал {{ homeworks_turned }} из {{ homeworks_overall }}
+            домашних заданий(-я)
+          </h3>
+          <p>{{ homeworks_info }}</p>
+        </div>
+
+        <div class="box">
+          <h3>Стоит обратить внимание на:</h3>
+          <div class="problem_container"></div>
+        </div>
+
+        <div class="box">
+          <h3>Активность на уроке: оценка – {{ activity }}/5</h3>
+          <p>{{ activity_info }}</p>
+        </div>
+
+        <div class="box">
+          <h3>Приобретенные навыки на сегодняшний день:</h3>
+          <div class="skills"></div>
+        </div>
+      </div>
+      <div class="stamp">
+        <div class="stamp_inner">
+          <h3>Проверено:</h3>
+          <img draggable="false" src="./img/stamp.png" alt="" />
+          <p><em> Спасибо, уважаемый родитель за выбор нашей академии! </em></p>
+          <p>
+            <em>С уважением, онлайн академия программирования Morrison.</em>
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <script src="script.js"></script>
+  </body>
+</html>

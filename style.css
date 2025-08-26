@@ -1,0 +1,140 @@
+@import url("https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,100..900;1,100..900&display=swap");
+
+* {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  background-color: #393e46;
+  font-family: "Noto Sans", serif;
+  font-size: 12px;
+}
+
+.top {
+  height: 50px;
+  background-color: #222831;
+  position: sticky;
+  top: 0;
+  margin-bottom: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.controls {
+  width: 793px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.logo {
+  font-size: 25px;
+  color: white;
+  font-weight: 800;
+  display: flex;
+  align-items: center;
+}
+
+.logo img {
+  width: 30px;
+  margin-right: 4px;
+}
+
+#downloadBtn {
+  height: 40px;
+  margin: auto 0;
+  border-radius: 10px;
+  aspect-ratio: 1;
+  cursor: pointer;
+  transition: 0.4s;
+}
+
+#downloadBtn:hover {
+  transform: scale(1.07);
+}
+#downloadBtn2 {
+  height: 40px;
+  margin: auto 0;
+  margin-right: 5px;
+  border-radius: 10px;
+  aspect-ratio: 1;
+  cursor: pointer;
+  transition: 0.4s;
+}
+
+#downloadBtn2:hover {
+  transform: scale(1.07);
+}
+
+.report {
+  margin: 0 auto;
+  background-color: white;
+  width: 793px;
+  min-height: 1132px;
+  padding: 30px 25px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+h1 {
+  font-size: 20px;
+  text-align: center;
+  margin: 10px;
+  page-break-inside: avoid;
+}
+
+h2 {
+  font-size: 14px;
+  text-align: center;
+  font-weight: 600;
+  margin-bottom: 10px;
+  page-break-inside: avoid;
+}
+
+h3 {
+  font-size: 14px;
+  margin-bottom: 5px;
+  page-break-inside: avoid;
+}
+
+.problem {
+  background-color: #e0ecff;
+  margin: 4px 0;
+  padding: 8px;
+  border-radius: 10px;
+  page-break-inside: avoid;
+}
+
+.lesson {
+  background-color: #e0ecff;
+  margin: 4px 0;
+  padding: 8px;
+  border-radius: 10px;
+  page-break-inside: avoid;
+}
+
+.box {
+  margin: 16px;
+  margin-left: 0;
+  padding-left: 10px;
+  border-left: 2px solid #222831;
+}
+
+.stamp {
+  display: flex;
+  justify-content: end;
+  page-break-inside: avoid;
+}
+
+.stamp_inner {
+  text-align: end;
+}
+
+.stamp_inner img {
+  width: 120px;
+}
