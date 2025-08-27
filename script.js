@@ -77,18 +77,6 @@ const python = { /* …как у вас… */
 const frontpro = { /* …как у вас… */ 1:"Введение в JS - ...", /* …до 72… */ 72:"Часть 4 - ...", };
 const roblox = { /* …как у вас… */ 1:"Твоя первая гоночная трасса - ...", /* …до 32… */ 32:"Система монет за киллы - ..." };
 
-const skillHashFront = { /* …как у вас… */ };
-const skillHashScratch = { /* …как у вас… */ };
-const skillHashPython = { /* …как у вас… */ };
-const skillHashFrontpro = { /* …как у вас… */ };
-const skillHashRoblox = { /* …как у вас… */ };
-
-const skillMapFront = { /* …как у вас… */ };
-const skillMapScratch = { /* …как у вас… */ };
-const skillMapPython = { /* …как у вас… */ };
-const skillMapFrontPro = { /* …как у вас… */ };
-const skillMapRoblox = { /* …как у вас… */ };
-
 // ===== служебные функции, связанные с посещаемостью/дз =====
 function attendanceInfo(lessons, attendance) {
   const context = {
