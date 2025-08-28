@@ -349,11 +349,15 @@ fillList(".strengths", strengths);
 fillList(".weaknesses", weaknesses);
 fillList(".recs", recs);
 
-// --- PDF
 document.getElementById("downloadBtn").addEventListener("click", () => {
   const element = document.querySelector(".report");
+
+  // Use html2pdf to convert the element to a PDF
   html2pdf()
     .from(element)
-    .set({ pagebreak: { mode: ["css"] }, margin: [4, 0, 4, 0] })
-    .save((paramsObject["3"]?.trim() || "Отчёт") + ".pdf");
+    .set({
+      pagebreak: { mode: ["css"] }, // Avoid cutting elements
+      margin: [4, 0, 4, 0],
+    })
+    .save(paramsObject["3"].trim() + ".pdf");
 });
