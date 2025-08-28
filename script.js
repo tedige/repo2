@@ -358,17 +358,17 @@ const reportData = {
 
 
 reportData["attendance_info"] = attendanceInfo(
-  paramsObject["4"],
-  paramsObject["5"]
+  Number(paramsObject["4"] || 0),
+  Number(paramsObject["5"] || 0)
 );
 
 reportData["homeworks_info"] = homeworksInfo(
-  paramsObject["6"],
-  paramsObject["7"]
+  Number(paramsObject["6"] || 0),
+  Number(paramsObject["7"] || 0)
 );
+
+
 const lessons_list = paramsObject["8"]?.split(".,");
-
-
 
 const lessons_cont = document.querySelector(".what_learned");
 const mapLessonList = {
@@ -382,16 +382,23 @@ const mapLessonList = {
 
 const source = mapLessonList[lessons_list[0]];
 
-lessons_list.slice(1).map((element) => {
-  if (element != " ") {
+
+lessons_list.slice(1).forEach((element) => {
+  const num = parseInt(element);
+  if (!isNaN(num) && source[num]) {
+    // если это число и оно есть в списке
     const prob = document.createElement("div");
     prob.classList.add("lesson");
-    prob.innerText = source[parseInt(element)]
-      ? element + " урок. " + source[parseInt(element)]
-      : element;
+    prob.innerText = num + " урок. " + source[num];
+    lessons_cont.appendChild(prob);
+  } else if (element.trim() !== "") {
+    const prob = document.createElement("div");
+    prob.classList.add("lesson");
+    prob.innerText = element;
     lessons_cont.appendChild(prob);
   }
 });
+
 
 const exceptions = [
   "Сдает аттестацию",
