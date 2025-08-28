@@ -277,82 +277,144 @@ function attendanceInfo(lessons, attendance) {
     mid: "Хотим обратить ваше внимание на то, что посещаемость наших уроков программирования является хорошей, но не отличной. С нашей стороны мы предоставим вам бесплатные дополнительные занятия, вам необходимо будет указать время и дни для комфортного прохождения данных уроков.",
     low: "Хотели бы обратить ваше внимание на посещаемость уроков вашего ребенка. К сожалению, она несколько ниже желаемой. Важно помнить, что регулярное участие на уроках играет ключевую роль в успехе обучения. С нашей стороны мы предоставим вам бесплатные дополнительные занятия, вам необходимо будет указать время и дни для комфортного прохождения данных уроков.",
   };
-  const l = Number(lessons) || 0;
-  const a = Number(attendance) || 0;
-  if (l > 0) {
-    const p = (a / l) * 100;
-    if (p > 79) return context.good;
-    if (p >= 50) return context.mid;
+
+  let percentage = 0;
+  if (attendance !== 0 && lessons !== 0) {
+    percentage = (attendance / lessons) * 100;
   }
-  return context.low;
+
+  if (percentage > 79) {
+    return context.good;
+  } else if (percentage >= 50) {
+    return context.mid;
+  } else {
+    return context.low;
+  }
 }
 
 function homeworksInfo(homeworksOverall, homeworksTurned) {
   const context = {
     good: "Ребенок продемонстрировал отличную успеваемость.Это великолепное достижение! Пожалуйста, продолжайте вдохновлять и поддерживать его в его образовательном путешествии.",
-    mid: "Успеваемость вашего ребенка находится на среднем уровне. Это означает, что есть потенциал для улучшения...",
-    low: "На данный момент успеваемость оставляет желать лучшего. Мы понимаем, что учебные трудности могут возникать у каждого ребенка..."
+    mid: "Успеваемость вашего ребенка находится на среднем уровне. Это означает, что есть потенциал для улучшения. Мы верим в потенциал каждого ученика и готовы предложить дополнительную поддержку, чтобы помочь вашему ребенку достичь лучших результатов. Если у вас есть какие-либо вопросы или замечания, пожалуйста, свяжитесь с нами. Мы готовы обсудить индивидуальный план для вашего ребенка, который поможет ему улучшить свою успеваемость.",
+    low: "На данный момент успеваемость оставляет желать лучшего. Мы понимаем, что учебные трудности могут возникать у каждого ребенка, и мы готовы предложить поддержку. Если у вашего ребенка возникли трудности в учебе, давайте обсудим, какие шаги мы можем предпринять, чтобы помочь ему улучшить успеваемость. Мы также призываем вас включиться в процесс обучения вашего ребенка и поддержать его в учебе. Совместными усилиями мы сможем помочь ему добиться лучших результатов.",
   };
-  const o = Number(homeworksOverall) || 0;
-  const t = Number(homeworksTurned) || 0;
-  if (o > 0) {
-    const p = (t / o) * 100;
-    if (p > 79) return context.good;
-    if (p >= 50) return context.mid;
-  }
-  return context.low;
-}
-  
+
   let percentage = 0;
+
   if (homeworksOverall !== 0) {
-    try { percentage = (homeworksTurned / homeworksOverall) * 100; } catch { percentage = 0; }
-    if (percentage > 79) return context.good;
-    if (percentage >= 50) return context.mid;
-    return context.low;
+    try {
+      percentage = (homeworksTurned / homeworksOverall) * 100;
+    } catch {
+      percentage = 0;
+    }
+
+    if (percentage > 79) {
+      return context.good;
+    } else if (percentage >= 50) {
+      return context.mid;
+    } else {
+      return context.low;
+    }
   }
+
   return context.low;
 }
 
-// --- URL-параметры
-const fullUrl = window.location.href;
+const fullUrl = window.location.href; // Full URL including query parameters
+console.log(fullUrl);
 const paramsObject = {};
-const queryString = fullUrl.split("?")[1];
+// Extract the query string from the full URL
+const queryString = fullUrl.split("?")[1]; // Everything after the '?'
+
+// Check if query string exists
 if (queryString) {
-  queryString.split("&").forEach((param) => {
+  // Split query string into key-value pairs
+  const paramsArray = queryString.split("&");
+
+  // Initialize an empty object to hold parsed parameters
+
+  // Loop through each key-value pair and split them into the object
+  paramsArray.forEach((param) => {
     const [key, value] = param.split("=");
     paramsObject[decodeURIComponent(key)] = decodeURIComponent(value);
   });
+
+  console.log(paramsObject); // Logs the parsed parameters as an object
+} else {
+  console.log("No query parameters found.");
 }
 
-// --- данные отчёта
 const reportData = {
   full_name: paramsObject["3"],
   attendance: paramsObject["5"],
   lessons: paramsObject["4"],
   homeworks_turned: paramsObject["7"],
   homeworks_overall: paramsObject["6"],
-  strengths: paramsObject["10"],      
-  weaknesses: paramsObject["11"],     
-  recommendations: paramsObject["12"],
+  strengths: paramsObject["8"],      
+  weaknesses: paramsObject["9"],     
+  recommendations: paramsObject["10"],
   month: paramsObject["m"],
 };
 
-reportData.attendance_info = attendanceInfo(paramsObject["4"], paramsObject["5"]);
-reportData.homeworks_info = homeworksInfo(paramsObject["6"], paramsObject["7"]);
+reportData["attendance_info"] = attendanceInfo(
+  paramsObject["4"],
+  paramsObject["5"]
+);
 
-// --- Что изучил
+reportData["homeworks_info"] = homeworksInfo(
+  paramsObject["6"],
+  paramsObject["7"]
+);
 const lessons_list = paramsObject["8"]?.split(".,");
+
 const lessons_cont = document.querySelector(".what_learned");
-const mapLessonList = { фронт: front, скретч: scratch, питон: python, фронтпро: frontpro, роблокс: roblox };
-const source = mapLessonList[lessons_list?.[0]] || {};
-lessons_list?.slice(1).forEach((element) => {
-  if (element && element.trim() !== " ") {
-    const el = document.createElement("div");
-    el.classList.add("lesson");
-    el.innerText = source[parseInt(element)] ? `${element} урок. ${source[parseInt(element)]}` : element;
-    lessons_cont.appendChild(el);
+const mapLessonList = {
+  фронт: front,
+  скретч: scratch,
+  питон: python,
+  фронтпро: frontpro,
+  роблокс: roblox,
+};
+
+
+const source = mapLessonList[lessons_list[0]];
+
+lessons_list.slice(1).map((element) => {
+  if (element != " ") {
+    const prob = document.createElement("div");
+    prob.classList.add("lesson");
+    prob.innerText = source[parseInt(element)]
+      ? element + " урок. " + source[parseInt(element)]
+      : element;
+    lessons_cont.appendChild(prob);
   }
 });
+
+const exceptions = [
+  "Сдает аттестацию",
+  "Выполняет практические задания",
+  "Работает над дипломным проектом",
+  "Работает над проектом  Django",
+  "Выполняет доп задания",
+];
+
+const finalStage = lessons_list.slice(1).some((lesson) => {
+  console.log(lesson);
+  return exceptions.includes(lesson.trim());
+});
+
+console.log("in final stage : ", finalStage); // true
+
+const strengths_cont = document.querySelector(".strengths");
+skills_list.map((element) => {
+  if (element.trim() !== "") {
+    const prob = document.createElement("div");
+    prob.classList.add("strengths");
+    prob.innerText = element;
+    strengths_cont.appendChild(prob);
+  }
+});
+
 
 // --- Подстановка плейсхолдеров {{...}}
 document.body.innerHTML = document.body.innerHTML.replace(/\{\{\s*(\w+)\s*\}\}/g, (_, key) => reportData[key] || "");
@@ -365,6 +427,14 @@ fillList(".strengths", strengths);
 fillList(".weaknesses", weaknesses);
 fillList(".recs", recs);
 
+const attend_percent =
+  // Populate template with data
+  (document.body.innerHTML = document.body.innerHTML.replace(
+    /\{\{\s*(\w+)\s*\}\}/g,
+    (_, key) => reportData[key] || ""
+  ));
+
+// Function to download the report as PDF
 document.getElementById("downloadBtn").addEventListener("click", () => {
   const element = document.querySelector(".report");
 
