@@ -331,6 +331,9 @@ const reportData = {
   lessons: paramsObject["4"],
   homeworks_turned: paramsObject["7"],
   homeworks_overall: paramsObject["6"],
+  strengths: paramsObject["10"],      
+  weaknesses: paramsObject["11"],     
+  recommendations: paramsObject["12"],
   month: paramsObject["m"],
 };
 
