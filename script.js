@@ -426,16 +426,15 @@ const strengths = splitMulti(reportData.strengths);
 const weaknesses = splitMulti(reportData.weaknesses);
 const recs = splitMulti(reportData.recommendations);
 
+document.body.innerHTML = document.body.innerHTML.replace(
+  /\{\{\s*(\w+)\s*\}\}/g,
+  (_, key) => reportData[key] || ""
+);
 
 fillList(".strengths", strengths);
 fillList(".weaknesses", weaknesses);
 fillList(".recs", recs);
 
-
-document.body.innerHTML = document.body.innerHTML.replace(
-  /\{\{\s*(\w+)\s*\}\}/g,
-  (_, key) => reportData[key] || ""
-);
 
 // Function to download the report as PDF
 document.getElementById("downloadBtn").addEventListener("click", () => {
