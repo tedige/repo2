@@ -391,13 +391,12 @@ lessons_list.slice(1).forEach((element) => {
   const prob = document.createElement("div");
   prob.classList.add("lesson");
 
-  if (!isNaN(num) && source[num]) {
-    // если это номер урока
-    prob.innerText = num + " урок. " + source[num];
+   if (!isNaN(num) && source[num]) {
+    prob.innerText = source[num];
   } else {
-    // если это текст (например "1 урок. Что такое сайты...")
     prob.innerText = element;
   }
+
 
   lessons_cont.appendChild(prob);
 });
