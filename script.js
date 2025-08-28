@@ -369,7 +369,8 @@ reportData["homeworks_info"] = homeworksInfo(
 );
 
 
-const lessons_list = paramsObject["8"]?.split(".,");
+const lessons_list = splitMulti(paramsObject["8"]);
+
 
 const lessons_cont = document.querySelector(".what_learned");
 const mapLessonList = {
