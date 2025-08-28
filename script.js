@@ -385,18 +385,19 @@ const source = mapLessonList[lessons_list[0]];
 
 lessons_list.slice(1).forEach((element) => {
   const num = parseInt(element);
+
+  const prob = document.createElement("div");
+  prob.classList.add("lesson");
+
   if (!isNaN(num) && source[num]) {
-    // если это число и оно есть в списке
-    const prob = document.createElement("div");
-    prob.classList.add("lesson");
+    // если это номер урока
     prob.innerText = num + " урок. " + source[num];
-    lessons_cont.appendChild(prob);
-  } else if (element.trim() !== "") {
-    const prob = document.createElement("div");
-    prob.classList.add("lesson");
+  } else {
+    // если это текст (например "1 урок. Что такое сайты...")
     prob.innerText = element;
-    lessons_cont.appendChild(prob);
   }
+
+  lessons_cont.appendChild(prob);
 });
 
 
