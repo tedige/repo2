@@ -1,14 +1,38 @@
 const lessons_cont = document.querySelector(".what_learned");
 const lessons_list = splitMulti(paramsObject["8"]);
 
-lessons_list.forEach((lesson) => {
-  if (lesson.trim()) {
-    const prob = document.createElement("div");
-    prob.classList.add("lesson");
-    prob.innerText = lesson; // тут просто берём текст из таблицы
-    lessons_cont.appendChild(prob);
+const mapLessonList = {
+  фронт: front,
+  скретч: scratch,
+  питон: python,
+  фронтпро: frontpro,
+  роблокс: roblox,
+};
+
+// первая строка в lessons_list может быть названием курса (например "фронт")
+let source = null;
+if (mapLessonList[lessons_list[0].toLowerCase()]) {
+  source = mapLessonList[lessons_list[0].toLowerCase()];
+  lessons_list.shift(); // удаляем название курса из списка
+}
+
+lessons_list.forEach((element) => {
+  const prob = document.createElement("div");
+  prob.classList.add("lesson");
+
+  const num = parseInt(element);
+
+  if (source && !isNaN(num) && source[num]) {
+    // если это номер урока из словаря
+    prob.innerText = num + " урок. " + source[num];
+  } else {
+    // иначе просто выводим текст как есть
+    prob.innerText = element;
   }
+
+  lessons_cont.appendChild(prob);
 });
+
 
 
 function attendanceInfo(lessons, attendance) {
@@ -108,16 +132,6 @@ reportData["homeworks_info"] = homeworksInfo(
 );
 
 
-const lessons_list = paramsObject["8"]?.split(".,");
-
-const lessons_cont = document.querySelector(".what_learned");
-const mapLessonList = {
-  фронт: front,
-  скретч: scratch,
-  питон: python,
-  фронтпро: frontpro,
-  роблокс: roblox,
-};
 
 
 const source = mapLessonList[lessons_list[0]];
