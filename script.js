@@ -350,11 +350,12 @@ const reportData = {
   lessons: paramsObject["4"],
   homeworks_turned: paramsObject["7"],
   homeworks_overall: paramsObject["6"],
-  strengths: paramsObject["8"],      
-  weaknesses: paramsObject["9"],     
-  recommendations: paramsObject["10"],
+  strengths: paramsObject["9"],      
+  weaknesses: paramsObject["10"],     
+  recommendations: paramsObject["11"],
   month: paramsObject["m"],
 };
+
 
 reportData["attendance_info"] = attendanceInfo(
   paramsObject["4"],
@@ -405,34 +406,35 @@ const finalStage = lessons_list.slice(1).some((lesson) => {
 
 console.log("in final stage : ", finalStage); // true
 
-const strengths_cont = document.querySelector(".strengths");
-skills_list.map((element) => {
-  if (element.trim() !== "") {
-    const prob = document.createElement("div");
-    prob.classList.add("strengths");
-    prob.innerText = element;
-    strengths_cont.appendChild(prob);
-  }
-});
+function splitMulti(str) {
+  if (!str) return [];
+  return str.split(/[.,;]+/).map(s => s.trim()).filter(s => s.length > 0);
+}
 
+function fillList(selector, arr) {
+  const cont = document.querySelector(selector);
+  arr.forEach(el => {
+    const div = document.createElement("div");
+    div.classList.add("lesson");
+    div.innerText = el;
+    cont.appendChild(div);
+  });
+}
 
-// --- Подстановка плейсхолдеров {{...}}
-document.body.innerHTML = document.body.innerHTML.replace(/\{\{\s*(\w+)\s*\}\}/g, (_, key) => reportData[key] || "");
+const strengths = splitMulti(reportData.strengths);
+const weaknesses = splitMulti(reportData.weaknesses);
+const recs = splitMulti(reportData.recommendations);
 
-// --- Списки сильных/слабых/рекомендаций
-const strengths = splitMulti(paramsObject["9"]);
-const weaknesses = splitMulti(paramsObject["10"]);
-const recs = splitMulti(paramsObject["11"]);
 fillList(".strengths", strengths);
 fillList(".weaknesses", weaknesses);
 fillList(".recs", recs);
 
-const attend_percent =
-  // Populate template with data
-  (document.body.innerHTML = document.body.innerHTML.replace(
-    /\{\{\s*(\w+)\s*\}\}/g,
-    (_, key) => reportData[key] || ""
-  ));
+
+
+document.body.innerHTML = document.body.innerHTML.replace(
+  /\{\{\s*(\w+)\s*\}\}/g,
+  (_, key) => reportData[key] || ""
+);
 
 // Function to download the report as PDF
 document.getElementById("downloadBtn").addEventListener("click", () => {
