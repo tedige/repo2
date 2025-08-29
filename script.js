@@ -1,12 +1,6 @@
 
 function splitMulti(str) {
   if (!str) return [];
-  return str.split(/\.,\s*/).map(s => s.trim()).filter(s => s.length > 0);
-}
-
-
-function splitMulti(str) {
-  if (!str) return [];
   return str.split(/\.,\s*/).map(s => {
     s = s.trim();
     if (s.length > 0 && !s.endsWith(".")) {
