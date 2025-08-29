@@ -101,7 +101,6 @@ reportData["homeworks_info"] = homeworksInfo(
   Number(paramsObject["7"] || 0)
 );
 
-
 const lessons_list = splitMulti(paramsObject["8"] || "");
 const lessons_cont = document.querySelector(".what_learned");
 
