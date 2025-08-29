@@ -369,10 +369,9 @@ reportData["homeworks_info"] = homeworksInfo(
 );
 
 
-const lessons_list = splitMulti(paramsObject["8"]);
-
-
+const lessons_list = splitMulti(paramsObject["8"] || "");
 const lessons_cont = document.querySelector(".what_learned");
+
 const mapLessonList = {
   фронт: front,
   скретч: scratch,
@@ -381,25 +380,30 @@ const mapLessonList = {
   роблокс: roblox,
 };
 
+// если первая строка совпадает с названием курса — берём словарь
+let source = null;
+if (lessons_list.length > 0 && mapLessonList[lessons_list[0].toLowerCase()]) {
+  source = mapLessonList[lessons_list[0].toLowerCase()];
+  lessons_list.shift();
+}
 
-const source = mapLessonList[lessons_list[0]];
-
-
-lessons_list.slice(1).forEach((element) => {
-  const num = parseInt(element);
-
+lessons_list.forEach((element) => {
   const prob = document.createElement("div");
   prob.classList.add("lesson");
 
-   if (!isNaN(num) && source[num]) {
+  const num = parseInt(element);
+
+  if (source && !isNaN(num) && source[num]) {
+    // номер урока из словаря
     prob.innerText = source[num];
   } else {
+    // готовый текст как есть
     prob.innerText = element;
   }
 
-
   lessons_cont.appendChild(prob);
 });
+
 
 
 const exceptions = [
