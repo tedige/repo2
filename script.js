@@ -1,4 +1,7 @@
-
+function splitMulti(str) {
+  if (!str) return [];
+  return str.split(/[.,;]+/).map(s => s.trim()).filter(s => s.length > 0);
+}
 
 function attendanceInfo(lessons, attendance) {
   const context = {
@@ -123,10 +126,6 @@ const finalStage = lessons_list.slice(1).some((lesson) => {
 
 console.log("in final stage : ", finalStage); // true
 
-function splitMulti(str) {
-  if (!str) return [];
-  return str.split(/[.,;]+/).map(s => s.trim()).filter(s => s.length > 0);
-}
 
 // универсальная функция для списков (сильные, слабые, рекомендации)
 function fillList(selector, arr) {
