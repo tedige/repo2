@@ -108,8 +108,6 @@ lessons_list.forEach((element) => {
 });
 
 
-
-
 const exceptions = [
   "Сдает аттестацию",
   "Выполняет практические задания",
@@ -127,13 +125,13 @@ console.log("in final stage : ", finalStage); // true
 
 function splitMulti(str) {
   if (!str) return [];
-  // делим только по переносам строк
-  return str.split(/\n+/).map(s => s.trim()).filter(s => s.length > 0);
+  return str.split(/[.,;]+/).map(s => s.trim()).filter(s => s.length > 0);
 }
 
-
+// универсальная функция для списков (сильные, слабые, рекомендации)
 function fillList(selector, arr) {
   const cont = document.querySelector(selector);
+  cont.innerHTML = ""; // очистим на всякий случай
   arr.forEach(el => {
     const div = document.createElement("div");
     div.classList.add("lesson");
@@ -146,10 +144,12 @@ const strengths = splitMulti(reportData.strengths);
 const weaknesses = splitMulti(reportData.weaknesses);
 const recs = splitMulti(reportData.recommendations);
 
-
 fillList(".strengths", strengths);
 fillList(".weaknesses", weaknesses);
 fillList(".recs", recs);
+
+
+
 
 document.body.innerHTML = document.body.innerHTML.replace(
   /\{\{\s*(\w+)\s*\}\}/g,
