@@ -5,6 +5,18 @@ function splitMulti(str) {
 }
 
 
+function splitMulti(str) {
+  if (!str) return [];
+  return str.split(/\.,\s*/).map(s => {
+    s = s.trim();
+    if (s.length > 0 && !s.endsWith(".")) {
+      s += ".";
+    }
+    return s;
+  });
+}
+
+
 
 function attendanceInfo(lessons, attendance) {
   const context = {
