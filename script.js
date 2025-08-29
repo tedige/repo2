@@ -127,8 +127,10 @@ console.log("in final stage : ", finalStage); // true
 
 function splitMulti(str) {
   if (!str) return [];
-  return str.split(/[.,;]+/).map(s => s.trim()).filter(s => s.length > 0);
+  // делим только по переносам строк
+  return str.split(/\n+/).map(s => s.trim()).filter(s => s.length > 0);
 }
+
 
 function fillList(selector, arr) {
   const cont = document.querySelector(selector);
