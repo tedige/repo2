@@ -391,18 +391,21 @@ lessons_list.forEach((element) => {
   const prob = document.createElement("div");
   prob.classList.add("lesson");
 
-  const num = parseInt(element);
-
-  if (source && !isNaN(num) && source[num]) {
-    // номер урока из словаря
-    prob.innerText = source[num];
-  } else {
-    // готовый текст как есть
+  // если в тексте уже явно есть "урок", вставляем как есть
+  if (element.toLowerCase().includes("урок")) {
     prob.innerText = element;
+  } else {
+    const num = parseInt(element);
+    if (source && !isNaN(num) && source[num]) {
+      prob.innerText = source[num];
+    } else {
+      prob.innerText = element;
+    }
   }
 
   lessons_cont.appendChild(prob);
 });
+
 
 
 
