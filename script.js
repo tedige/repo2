@@ -1,13 +1,13 @@
 function splitMulti(str) {
   if (!str) return [];
-  return str
-    .split(/[.,]+/) // режем по точке или запятой
-    .map(s => s.trim().replace(/\.*$/, "")) // убираем точки в конце
-    .filter(s => s.length > 0);
+  return str.split(/\.,\s*/).map(s => {
+    s = s.trim();
+    if (s.length > 0 && !/[.!?]$/.test(s)) {
+      s += "."; // добавляем точку, если в конце нет знака
+    }
+    return s;
+  }).filter(s => s.length > 0);
 }
-
-
-
 
 
 function attendanceInfo(lessons, attendance) {
