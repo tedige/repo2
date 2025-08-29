@@ -1,7 +1,8 @@
 function splitMulti(str) {
   if (!str) return [];
-  return str.split(/[.;]+/).map(s => s.trim()).filter(s => s.length > 0);
+  return str.split(/\.,/).map(s => s.trim()).filter(s => s.length > 0);
 }
+
 
 
 function attendanceInfo(lessons, attendance) {
